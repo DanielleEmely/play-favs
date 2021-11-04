@@ -11,8 +11,3 @@ urlpatterns = [
 
 ]
 """"""
-
-"""path('getPlaylist', viewsets.playlists, name='listagem'),
-    path('postPlaylist/', viewsets.playlistsPost, name='envio'),
-    path('putPlaylist/<str:pk>/', viewsets.plalistPut, name='atualizar'),
-    path('deletePlaylist/<str:pk>', viewsets.playlistDel, name='deletar')"""

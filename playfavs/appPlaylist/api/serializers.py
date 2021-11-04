@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from playfavs.appPlaylist.models import Playlist, Artista, Musica
+from ..models import Playlist, Artista, Musica
 
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:

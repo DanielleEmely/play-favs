@@ -20,6 +20,6 @@ def artista(request, musica_id):
     return render(request, 'appPlaylist/artista.html', conteudo)
 
 def musica(request, playlist_id):
-    playlist = Playlist.objects.filter(id=playlist_id)
-    conteudo = {'playlist': playlist}
+    musicas = Playlist.objects.filter(id=playlist_id)
+    conteudo = {'musicas': musicas}
     return render(request, 'appPlaylist/musica.html', conteudo)
