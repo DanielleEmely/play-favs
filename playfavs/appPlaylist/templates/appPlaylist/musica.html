@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Musicas da playlist</title>
+    <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2}
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+</head>
+<body>
+  <table>
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Artista</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for play in playlist %}
+                <tr>
+                    <td>{{ play.musicas.titulo }}</td>
+                    <td><a href="/">Artista</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

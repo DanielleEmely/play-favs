@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Playlists Favoritas</title>
+    <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2}
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <ul>
+        {% for play in playlists %}
+        <li>
+            {{ play.nome_playlist }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+<table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Autor</th>
+                <th>Musicas</th>
+                <th>Criado em</th>
+                <th>Atualizado em</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for play in playlists %}
+                <tr>
+                    <td>{{ play.nome_playlist }}</td>
+                    <td>{{ play.autor }}</td>
+                    <td><a href="{% url 'appPlaylist:musica' play.id %}">Musicas</a></td>
+                    <td>{{ play.criado }}</td>
+                    <td>{{ play.atualizado }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</html>

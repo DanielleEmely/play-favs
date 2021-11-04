@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    #caminho para a page do alicativo criado appPlayList
+    #caminho para as pages do aplicativos
     path('appPlaylist/', include('appPlaylist.urls')),
     path('admin/', admin.site.urls),
 ]

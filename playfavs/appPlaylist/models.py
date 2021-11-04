@@ -23,6 +23,8 @@ class Playlist(models.Model):
     # com isso, são acessados, titulo e artista, e por consequência do relacionamento da
     # musica com seu artista, pode-se chegar até os dados do artista de uma música também.
     musicas = models.ForeignKey(Musica, on_delete=models.CASCADE, default=1)
+    criado = models.DateTimeField(auto_now_add=True)
+    atualizado = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.nome_playlist
