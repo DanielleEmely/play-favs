@@ -21,6 +21,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+# Foi usado o swagger para documentar
 schema_view = get_schema_view(
    openapi.Info(
       title="Playlist Favs API",
@@ -33,14 +34,13 @@ schema_view = get_schema_view(
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
-
+# caminho do link para acessar a api
 urlpatterns = [
-    #caminho para as pages do aplicativos
     path('appPlaylist/', include('appPlaylist.api.urls')),
     path('admin/', admin.site.urls),
 ]
 
-#swagger
+#para acessar o swagger
 urlpatterns += [
    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

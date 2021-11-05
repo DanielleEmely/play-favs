@@ -11,6 +11,7 @@ class Playlist(models.Model):
     # relacionamento (1:n), um usuario possui uma ou várias playlists
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     nome_playlist = models.CharField(max_length=200)
+    #dados para data de criação e ultima atualização
     criado = models.DateTimeField(auto_now_add=True)
     atualizado = models.DateTimeField(auto_now=True)
 

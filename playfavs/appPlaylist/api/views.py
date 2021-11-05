@@ -9,14 +9,12 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
-		'List':'/playlist-list/',
-		'Detail View':'/playlist-detail/<str:pk>/',
-		'Create':'/playlist-create/',
-		'Update':'/playlist-update/<str:pk>/',
-		'Delete':'/playlist-delete/<str:pk>/',
+		'List-Create Playlist': '/playlist-list-create/',
+        'Detail-Update-Delete Playlist': '/playlist-detail-update-delete/<str:pk>/',
         'List-Create Artista': '/artistas-list-create/',
         'Detail-Update-Delete Artista': '/artistas-detail-update-delete/<str:pk>/',
         'List-Create Musica': '/musicas-list-create/',
@@ -25,44 +23,47 @@ def apiOverview(request):
 
 	return Response(api_urls)
 
-@api_view(['GET'])
-def playlistList(request):
-    plays = Playlist.objects.all().order_by('-id')
-    serializer = PlaylistSerializer(plays, many=True)
-    return Response(serializer.data)
+# CRUD api das playlists
 
-@api_view(['GET'])
-def playlistDetail(request, pk):
-	playlists = Playlist.objects.get(id=pk)
-	serializer = PlaylistSerializer(playlists, many=False)
-	return Response(serializer.data)
+# Funções para as requisições de arcordo com o tipo
+# As requisições foram separadas de acordo com a obrigatoriedade de argumentos
+# Cada model possui sua view de requisição GET (com e sem arguemento) POST PUT e DELETE
 
-@api_view(['POST'])
-def playlistCreate(request):
-    serializer = PlaylistSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+@api_view(['GET', 'POST'])
+def playlist_list_create(request):
+    if request.method == 'GET':
+        plays = Playlist.objects.all().order_by('-id')
+        serializer = PlaylistSerializer(plays, many=True)
         return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'POST':
+        serializer = PlaylistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT'])
-def plalistUpdate(request, pk):
-    play = Playlist.objets.get(id=pk)
-    serializer = PlaylistSerializer(play, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+@api_view(['GET', 'PUT', 'DELETE'])
+def playlist_get_put_delete(request, pk):
+    if request.method == 'GET':
+        playlists = Playlist.objects.get(id=pk)
+        serializer = PlaylistSerializer(playlists, many=False)
         return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request == 'PUT':
+        play = Playlist.objets.get(id=pk)
+        serializer = PlaylistSerializer(play, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request == 'DELETE':
+        play = Playlist.objects.get(id=pk)
+        play.delete()
+        return Response('Playlist apagada sucesso!')
 
-@api_view(['DELETE'])
-def playlistDelete(request, pk):
-    play = Playlist.objects.get(id=pk)
-    play.delete()
-    return Response('Playlist apagada sucesso!')
 
 # CRUD api dos artistas
 @api_view(['GET', 'POST'])
-def artista_list_Create(request):
+def artista_list_create(request):
     if request.method == 'GET':
         artistas = Artista.objects.all().order_by('-id')
         serializer = ArtistaSerializer(artistas, many=True)

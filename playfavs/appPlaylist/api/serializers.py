@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from ..models import Playlist, Artista, Musica
 
+# classes de serialização dos dados
 class PlaylistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Playlist
